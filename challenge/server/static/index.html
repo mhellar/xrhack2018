@@ -124,16 +124,11 @@
         </a-assets>
 
         <a-entity id="player" networked="template:#player-template;attachTemplateToLocal:false;" spawn-in-circle="radius:3" wasd-controls>
-            <a-entity camera="userHeight: 1.6" look-controls networked="template:#head-template;attachTemplateToLocal:false;">
-                <a-sphere class="head" random-color visible="false"></a-sphere>
-            </a-entity>
-            <a-mixin id="teleport" teleport-controls="type: parabolic; cameraRig: #cameraRig; collisionEntities: [mixin='box'],[mixin='sphere']"></a-mixin>
-            <a-entity id="cameraRig">
-                <a-entity camera wasd-controls look-controls></a-entity>
-                <a-entity networked="template:#hand-template;" id="rightHand" mixin="teleport" laser-controls="hand: right" microsoft-motion-controls="hand: right" oculus-go-controls="hand: right"></a-entity>
-            </a-entity>
-            <!-- <a-entity hand-controls="left" networked="template:#hand-template;"></a-entity>
-            <a-entity hand-controls="right" networked="template:#hand-template;"></a-entity> -->
+          <a-entity camera="userHeight: 1.6" wasd-controls look-controls networked="template:#head-template;attachTemplateToLocal:false;">
+              <a-sphere class="head" random-color visible="false"></a-sphere>
+          </a-entity>
+          <a-entity networked="template:#hand-template;" id="rightHand" mixin="teleport" laser-controls="hand: right" microsoft-motion-controls="hand: right" oculus-go-controls="hand: right"></a-entity>
+          <a-mixin id="teleport" teleport-controls="type: parabolic; cameraRig: #player; collisionEntities: [mixin='box'],[mixin='sphere']"></a-mixin>
         </a-entity>
 
         <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
