@@ -2,9 +2,9 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Dev Example — Networked-Aframe</title>
-    <meta name="description" content="Dev Example — Networked-Aframe">
-
+    <title>Mind Palace - WebXR Weekend Challenge 2018</title>
+    <meta name="description" content="Mind Palace - WebXR Weekend Challenge 2018">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="/js/aframe-master.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
     <script src="/easyrtc/easyrtc.js"></script>
@@ -23,10 +23,18 @@
     <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
     <script src="/common/mappings.js"></script>
 
-</head>
-
-<body>
-
+  </head>
+  <body>
+    <script>
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         // js.src = "https://connect.facebook.net/en_US/sdk/debug.js";
+         js.src = "https://connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
     <a-scene networked-scene="
       room: handcontrollers;
       debug: true;
@@ -106,6 +114,12 @@
           </a-entity>
         </template>
 
+        <template id="photo-template">
+          <a-entity>
+            <a-image class="photo"></a-image>
+          </a-entity>
+        </template>
+
         <!-- /Templates -->
         </a-assets>
 
@@ -142,39 +156,60 @@
     </script>
 
     <script>
-        // Define custom schema for syncing avatar color, set by random-color
-        NAF.schemas.add({
-            template: '#head-template',
-            components: [
-                'position',
-                'rotation', {
-                    selector: '.head',
-                    component: 'material'
-                }
-            ]
-        });
+      // Define custom schema for syncing avatar color, set by random-color
+      NAF.schemas.add({
+        template: '#head-template',
+        components: [
+          'position',
+          'rotation',
+          {
+            selector: '.head',
+            component: 'material'
+          }
+        ]
+      });
 
-        NAF.schemas.add({
-            template: '#player-template',
-            components: [
-                'position',
-                'rotation'
-            ]
-        });
+      NAF.schemas.add({
+        template: '#player-template',
+        components: [
+          'position',
+          'rotation'
+        ]
+      });
 
-        NAF.schemas.add({
-            template: '#hand-template',
-            components: [
-                'position',
-                'rotation'
-            ]
-        });
+      NAF.schemas.add({
+        template: '#hand-template',
+        components: [
+          'position',
+          'rotation'
+        ]
+      });
 
-        // Called by Networked-Aframe when connected to server
-        function onConnect() {
-            console.log("onConnect");
-        }
+      NAF.schemas.add({
+        template: '#photo-template',
+        components: [
+          'position',
+          'rotation',
+          {
+            selector: '.photo',
+            component: 'material',
+            property: 'src'
+          }
+        ]
+      });
+
+      // Called by Networked-Aframe when connected to server
+      function onConnect () {
+        console.log("onConnect");
+      }
     </script>
-</body>
-
+    <div id="loader">
+      <p>Please wait...</p>
+      <div class="fb-login-button" data-scope="public_profile,user_photos" data-onlogin="checkFBLoginState();" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
+      <button onclick="skip();">Skip</button>
+      <div style="display:none;" class="fb-logout-button"><button onclick="logout();">Logout</button></div>
+    </div>
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/facebook.js"></script>
+  </body>
 </html>
