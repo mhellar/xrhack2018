@@ -9,7 +9,7 @@ var easyrtc = require("easyrtc");               // EasyRTC external module
 process.title = "node-easyrtc";
 
 // Get port or default to 8080
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 80;
 
 // Setup and configure Express http server. Expect a subfolder called "static" to be the web root.
 var app = express();

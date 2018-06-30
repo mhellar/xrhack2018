@@ -1,5 +1,6 @@
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>Dev Example — Networked-Aframe</title>
     <meta name="description" content="Dev Example — Networked-Aframe">
@@ -7,22 +8,53 @@
     <script src="/js/aframe-master.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
     <script src="/easyrtc/easyrtc.js"></script>
-    <script>window.NAF || document.write('<script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js">\x3C/script>')</script>
+    <script>
+        window.NAF || document.write('<script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js">\x3C/script>')
+    </script>
 
     <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
     <script src="https://unpkg.com/aframe-particle-system-component@1.0.5/dist/aframe-particle-system-component.min.js"></script>
     <script src="/js/spawn-in-circle.component.js"></script>
-  </head>
-  <body>
+
+    <script src="https://mmullen200.github.io/components.js"></script>
+
+    <script src="/dist/aframe-teleport-controls.min.js"></script>
+    <script src="https://unpkg.com/aframe-input-mapping-component/dist/aframe-input-mapping-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+    <script src="/common/mappings.js"></script>
+
+</head>
+
+<body>
 
     <a-scene networked-scene="
       room: handcontrollers;
       debug: true;
     ">
-      <a-assets>
+        <a-assets>
 
-        <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
-        <img id="sky" src="http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
+            <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
+            <img id="sky" src="http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
+
+            <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
+            <img id="sky" src="http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
+
+            <a-asset-item id="milktruck" src="assets/milktruck.gltf">
+            </a-asset-item>
+            <a-asset-item id="spaceinvader" src="assets/space_invader.obj"></a-asset-item>
+            <a-asset-item id="spaceinvader-mtl" src="assets/space_invader.mtl"></a-asset-item>
+            <a-asset-item id="spaceinvader2" src="assets/space_invader2.obj"></a-asset-item>
+            <a-asset-item id="spaceinvader2-mtl" src="assets/space_invader2.mtl"></a-asset-item>
+            <a-asset-item id="spaceinvader3" src="assets/space_invader3.obj"></a-asset-item>
+            <a-asset-item id="spaceinvader3-mtl" src="assets/space_invader3.mtl"></a-asset-item>
+
+        </a-assets>
+
+        <a-entity static-body gltf-model="#milktruck" position="-4 0 0"></a-entity>
+
+        <a-entity static-body obj-model="obj: #spaceinvader; mtl: #spaceinvader-mtl" position="-10 3 0"></a-entity>
+        <a-entity static-body obj-model="obj: #spaceinvader2; mtl: #spaceinvader2-mtl" position="4 3 0"></a-entity>
+        <a-entity static-body obj-model="obj: #spaceinvader3; mtl: #spaceinvader3-mtl" position="8 3 0"></a-entity>
 
         <!-- Templates -->
 
@@ -71,79 +103,79 @@
         <template id="hand-template">
           <a-entity>
             <a-box scale="0.1 0.1 0.1"></a-box>
+<a-mixin id="teleport" teleport-controls="type: parabolic; cameraRig: #cameraRig; collisionEntities: [mixin='box'],[mixin='sphere']"></a-mixin>
+<a-entity id="cameraRig">
+  <a-entity camera wasd-controls look-controls></a-entity>
+  <a-entity id="rightHand" mixin="teleport" laser-controls="hand: right" oculus-go-controls="hand: right"></a-entity>
+</a-entity>
           </a-entity>
         </template>
 
         <!-- /Templates -->
-      </a-assets>
+        </a-assets>
 
-      <a-entity id="player" networked="template:#player-template;attachTemplateToLocal:false;" spawn-in-circle="radius:3" wasd-controls>
-        <a-entity camera="userHeight: 1.6" look-controls networked="template:#head-template;attachTemplateToLocal:false;">
-            <a-sphere class="head"
-              random-color
-              visible="false"
-            ></a-sphere>
+        <a-entity id="player" networked="template:#player-template;attachTemplateToLocal:false;" spawn-in-circle="radius:3" wasd-controls>
+            <a-entity camera="userHeight: 1.6" look-controls networked="template:#head-template;attachTemplateToLocal:false;">
+                <a-sphere class="head" random-color visible="false"></a-sphere>
+            </a-entity>
+
+            <a-entity hand-controls="left" networked="template:#hand-template;"></a-entity>
+            <a-entity hand-controls="right" networked="template:#hand-template;"></a-entity>
         </a-entity>
 
-        <a-entity hand-controls="left" networked="template:#hand-template;"></a-entity>
-        <a-entity hand-controls="right" networked="template:#hand-template;"></a-entity>
-      </a-entity>
+        <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
 
-      <a-entity position="0 0 0"
-        geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
-        material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
+        <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
+        <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
 
-      <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
-      <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
-
-      <a-sky src="#sky" rotation="0 -90 0"></a-sky>
-      <a-entity id="particles" particle-system="preset: snow"></a-entity>
+        <a-sky src="#sky" rotation="0 -90 0"></a-sky>
+        <a-entity id="particles" particle-system="preset: snow"></a-entity>
     </a-scene>
 
     <script>
-      // On mobile remove elements that are resource heavy
-      var isMobile = AFRAME.utils.device.isMobile();
+        // On mobile remove elements that are resource heavy
+        var isMobile = AFRAME.utils.device.isMobile();
 
-      if (isMobile) {
-        var particles = document.getElementById('particles');
-        particles.parentNode.removeChild(particles);
-      }
+        if (isMobile) {
+            var particles = document.getElementById('particles');
+            particles.parentNode.removeChild(particles);
+        }
     </script>
 
     <script>
-      // Define custom schema for syncing avatar color, set by random-color
-      NAF.schemas.add({
-        template: '#head-template',
-        components: [
-          'position',
-          'rotation',
-          {
-            selector: '.head',
-            component: 'material'
-          }
-        ]
-      });
+        // Define custom schema for syncing avatar color, set by random-color
+        NAF.schemas.add({
+            template: '#head-template',
+            components: [
+                'position',
+                'rotation', {
+                    selector: '.head',
+                    component: 'material'
+                }
+            ]
+        });
 
-      NAF.schemas.add({
-        template: '#player-template',
-        components: [
-          'position',
-          'rotation'
-        ]
-      });
+        NAF.schemas.add({
+            template: '#player-template',
+            components: [
+                'position',
+                'rotation'
+            ]
+        });
 
-      NAF.schemas.add({
-        template: '#hand-template',
-        components: [
-          'position',
-          'rotation'
-        ]
-      });
+        NAF.schemas.add({
+            template: '#hand-template',
+            components: [
+                'position',
+                'rotation'
+            ]
+        });
 
-      // Called by Networked-Aframe when connected to server
-      function onConnect () {
-        console.log("onConnect");
-      }
+        // Called by Networked-Aframe when connected to server
+        function onConnect() {
+            console.log("onConnect");
+        }
     </script>
-  </body>
+</body>
+
 </html>
