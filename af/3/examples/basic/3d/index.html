@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="../../js/aframe-master.min.js"></script>
+    <script src="../../dist/aframe-teleport-controls.min.js"></script>
+    <script src="../common/shaders/skyGradient.js"></script>
+    <script src="https://unpkg.com/aframe-input-mapping-component/dist/aframe-input-mapping-component.min.js"></script>
+    <script src="../common/mappings.js"></script>
+</head>
+
+<body style="background-color: #000">
+    <a-scene>
+        <a-assets>
+            <a-asset-item id="tree-obj" src="3d/castle-tower.obj"></a-asset-item>
+            <a-asset-item id="tree-mtl" src="3d/castle-tower.mtl"></a-asset-item>
+            <audio id="river" src="sound/8-bit-Arcade4.mp3" autoplay="true"></audio>
+        </a-assets>
+        <!-- scene geometry -->
+
+        <a-entity id="sky" geometry="primitive: sphere; radius: 65;" material="shader: skyGradient; colorTop: #aaa; colorBottom: #fff; side: back"></a-entity>
+        <a-entity id="floor">
+            <a-entity rotation="-90 0 0" geometry="primitive: plane; width: 100; height: 100" material="src: url(floor.jpg); repeat: 80 80">
+            </a-entity>
+            <a-entity obj-model="obj:3d/castle-tower.obj;mtl:3d/castle-tower.mtl" id="obj" position="2.514447889634754 1.194 3.1024095950704353" scale="0.01 0.01 0.01">
+                <a-entity sound="src: #river"></a-entity>
+            </a-entity>
+        </a-entity>
+
+        </a-entity>
+        <!-- Hand controls. -->
+        <a-mixin id="teleport" teleport-controls="type: parabolic; cameraRig: #cameraRig;collisionEntities:#floor"></a-mixin>
+        <a-entity id="cameraRig">
+            <a-entity camera wasd-controls look-controls></a-entity>
+            <a-entity id="rightHand" mixin="teleport" oculus-go-controls="hand: right"></a-entity>
+        </a-entity>
+
+    </a-scene>
+</body>
+
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="../../js/aframe-master.min.js"></script>
+    <script src="../../dist/aframe-teleport-controls.min.js"></script>
+    <script src="../common/shaders/skyGradient.js"></script>
+    <script src="https://unpkg.com/aframe-input-mapping-component/dist/aframe-input-mapping-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+    <script src="../common/mappings.js"></script>
+</head>
+
+
+<body style="background-color: #000">
+    <script>
+        AFRAME.registerShader("voronoi", {
+            schema: {
+                image: {
+                    type: 'map',
+                    is: 'uniform'
+                },
+                resolution: {
+                    type: 'vec2',
+                    is: 'uniform',
+                    default: {
+                        x: 2,
+                        y: 2
+                    }
+                },
+                // FIXME: in A-Frame, time uniforms are in msec, not seconds
+                msec: {
+                    type: 'time',
+                    is: 'uniform'
+                },
+                contrast: {
+                    type: 'number',
+                    is: 'uniform',
+                    default: 0.28763934
+                },
+                morphSpeed: {
+                    type: 'number',
+                    is: 'uniform',
+                    default: 0.18484549
+                },
+                saturation: {
+                    type: 'number',
+                    is: 'uniform',
+                    default: 0.89614788
+                },
+                noiseScale: {
+                    type: 'number',
+                    is: 'uniform',
+                    default: 0.44673346
+                }
+            },
+
+            vertexShader: `
+varying vec2 vUv;
+void main() {
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+}
+`,
+
+            fragmentShader: `
+precision highp float;
+precision highp int;
+uniform sampler2D image;
+uniform vec2 resolution;
+// FIXME: in A-Frame, time uniforms are in msec, not seconds
+uniform float msec; // time;
+uniform float contrast;
+uniform float noiseScale;
+uniform float saturation;
+uniform float morphSpeed;
+varying vec2 vUv;
+
+float rnd(float x) {
+    return fract(200.0 * sin(185.13 * x));
+}
+
+vec3 rnd3(float x) {
+    return vec3(rnd(x), rnd(x + 0.1), rnd(x + 0.2));
+}
+
+float hash(float x, float y, float z) {
+    return (x + 432.432 * y - 1178.65 * z);
+}
+
+float hash(vec3 v) {
+    return dot(v, vec3(1., 32.432, -1178.65));
+}
+
+vec4 Noise(vec3 uvw) {
+    vec3 uvwi = floor(uvw);
+    float dmin = 1e9;
+    float d2min = 1e9;
+    float nmin = -1.0;
+    for (int i = -1; i <= 1; i++) {
+        for (int j = -1; j <= 1; j++) {
+            for (int k = -1; k <= 1; k++) {
+                vec3 c = uvwi + vec3(float(i), float(j), float(k));
+                float n = hash(c);
+                vec3 p = c + rnd3(n + 0.1);
+                float d = length(p - uvw);
+                if (d < dmin) {
+                    d2min = dmin;
+                    dmin = d;
+                    nmin = n;
+                } else if (d < d2min) {
+                    d2min = d;
+                }
+            }
+        }
+    }
+    return vec4( dmin, d2min, d2min - dmin, nmin );
+}
+
+void main() {
+
+  // FIXME: in A-Frame, time uniforms are in msec, not seconds
+    float time = msec / 1000.0;
+    vec3 uvw = vec3( vUv * resolution, sin( time * morphSpeed ) );
+
+    uvw *= 4.0 * ( 0.7 + 0.5 * vec3( 0.5, 0.5, 0.0 ) );
+    vec3 uvw0 = uvw;
+    uvw += 0.2 * texture2D( image, 0.1 * noiseScale * uvw.xy ).rgb;
+    vec4 noise = Noise( uvw );
+    vec3 col = mix( vec3( 1.0 ), rnd3( noise.a ), saturation );
+    float v = noise.z;
+    int mode = int( mod( 0.25 * time, 4.0 ) );
+    v = pow( v, contrast );
+    gl_FragColor = vec4( v * col, 1.0 );
+}
+`
+        });
+
+        AFRAME.registerComponent('mythreejsthing', {
+            schema: {
+                color: {
+                    default: '#000'
+                },
+            },
+
+            update: function() {
+                var material = new THREE.MeshBasicMaterial({
+                    color: this.data.color,
+                    wireframe: false
+                });
+
+                var geometry = new THREE.BoxGeometry(1, 1, 1);
+
+                this.el.setObject3D('mesh', new THREE.Mesh(geometry, material));
+            },
+
+            remove: function() {
+                this.el.removeObject3D('mesh');
+            }
+        });
+    </script>
+    <a-scene>
+        <a-assets>
+            <a-asset-item id="tree" src="3d/carry_out/carry.gltf" animation-mixer></a-asset-item>
+            <a-asset-item id="tree1" src="3d/Lowpoly_tree_sample_out/Lowpoly_tree_sample.gltf" animation-mixer></a-asset-item>
+
+        </a-assets>
+
+        <a-entity mythreejsthing="color: green;" position="0 1 -5"> </a-entity>
+
+        <a-box position="-3 1 -5" rotation="0 90 30" scale="" color="#F44336" event-set__enter="_event: mouseenter; _target: #bg; color: #F44336">
+        </a-box>
+        <a-box position="-1 2 -5" rotation="0 45 45" scale="0.75 0.75 0.75" color="#2196F3" event-set__enter="_event: mouseenter; _target: #bg; color: #2196F3">
+        </a-box>
+        <a-box position="2 2 -4" rotation="0 45 30" scale="0.75 0.75 0.75" color="#009688" event-set__enter="_event: mouseenter; _target: #bg; color: #009688">
+        </a-box>
+        <a-box position="1 1 -5" rotation="0 70 30" scale="0.9 0.9 0.9" color="#E91E63" event-set__enter="_event: mouseenter; _target: #bg; color: #E91E63">
+        </a-box>
+
+
+        <!-- scene geometry -->
+        <a-entity id="sky" id="bg" geometry="primitive: sphere; radius: 65;" material="shader: skyGradient; colorTop: #aaa; colorBottom: #fff; side: back"></a-entity>
+        <a-entity id="floor" rotation="-90 0 0" material="shader:voronoi" geometry="primitive: plane; width: 100; height: 100" material="src: url(floor.jpg); repeat: 80 80">
+        </a-entity>
+        <a-entity gltf-model="#tree"></a-entity>
+
+        <a-entity gltf-model="#tree1" position="-17.736658961503334 0 -15.796"></a-entity>
+        <a-entity gltf-model="#tree1" position="20.986230908714553 0 24.22181929477828" material="shader:voronoi"></a-entity>
+        <a-plane rotation="" position="0 4.865601704852038 -10.200880148847745" material="shader:voronoi;contrast:0.288;morphSpeed:0.185;saturation:0.896;noiseScale:0.447" geometry="" scale="10 10 10"></a-plane>
+        <!-- Hand controls. -->
+        <a-mixin id="teleport" teleport-controls="type: parabolic; cameraRig: #cameraRig; collisionEntities: [mixin='box'],[mixin='sphere']"></a-mixin>
+        <a-entity id="cameraRig">
+            <a-entity camera wasd-controls look-controls></a-entity>
+            <a-entity id="rightHand" mixin="teleport" laser-controls="hand: right" oculus-go-controls="hand: right"></a-entity>
+        </a-entity>
+    </a-scene>
+</body>
+
+</html>

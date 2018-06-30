@@ -1,0 +1,13 @@
+# pack-refs with: peeled fully-peeled sorted 
+d6934699003c427921e7fc4ac738856a10ced2b6 refs/remotes/origin/0.5.2-dev
+c61b569a592a9f34c765c65e3b19d655c8f673ac refs/remotes/origin/aframe-deep-equal
+51545c4c2b1dbb224ff11fc429007f0f73673ef6 refs/remotes/origin/bug/local-template-merge
+f2002b556aacf429fecaf0779a56768f2b9fac4a refs/remotes/origin/fix-spawn-circle
+ab073c3ef31fdcfe57844dd374395a608e1b94d0 refs/remotes/origin/master
+2d84d01b4246834e2861b244381304e87ebfc169 refs/remotes/origin/remove-schema-requirement
+c8cb687e6d0058b647c8aae67aae227f8316fc8a refs/remotes/origin/webrtc-toggle
+351678d578043e26eca9a902f4ab5987a3bc60fa refs/tags/v0.1.0
+b33c24637d6d8c28e902bb23bb06e8c124211fd6 refs/tags/v0.2.0
+fb28680f37e83f7a896ad736a1c31f428478d846 refs/tags/v0.3.0
+6d23476016f50e243af6ec46e40c0b9b95d8ebd4 refs/tags/v0.5.0
+35cd94a1c41f8f7958dabe14936fdb3eca310a57 refs/tags/v0.6.0

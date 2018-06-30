@@ -1,0 +1,226 @@
+{
+    "asset": {
+        "generator": "FBX2glTF",
+        "version": "2.0"
+    },
+    "scene": 0,
+    "buffers": [
+        {
+            "byteLength": 38968,
+            "uri": "buffer.bin"
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteLength": 3000,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        {
+            "buffer": 0,
+            "byteLength": 13488,
+            "byteOffset": 3000,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 13488,
+            "byteOffset": 16488,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 8992,
+            "byteOffset": 29976,
+            "target": 34962
+        }
+    ],
+    "scenes": [
+        {
+            "name": "Root Scene",
+            "nodes": [
+                0
+            ]
+        }
+    ],
+    "accessors": [
+        {
+            "componentType": 5123,
+            "type": "SCALAR",
+            "count": 1500,
+            "bufferView": 0,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC3",
+            "count": 1124,
+            "bufferView": 1,
+            "byteOffset": 0,
+            "min": [
+                -14.0618953704834,
+                -0.742633402347565,
+                -13.4720106124878
+            ],
+            "max": [
+                13.9192371368408,
+                25.7991104125977,
+                7.32972383499146
+            ]
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC3",
+            "count": 1124,
+            "bufferView": 2,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC2",
+            "count": 1124,
+            "bufferView": 3,
+            "byteOffset": 0
+        }
+    ],
+    "samplers": [
+        {}
+    ],
+    "materials": [
+        {
+            "name": "DefaultMaterial",
+            "alphaMode": "OPAQUE",
+            "extras": {
+                "fromFBX": {
+                    "shadingModel": "Lambert",
+                    "isTruePBR": false
+                }
+            },
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.5,
+                    0.5,
+                    0.5,
+                    1.0
+                ],
+                "metallicFactor": 0.200000002980232,
+                "roughnessFactor": 0.800000011920929
+            }
+        }
+    ],
+    "meshes": [
+        {
+            "name": "Tree_lp_11",
+            "primitives": [
+                {
+                    "material": 0,
+                    "mode": 4,
+                    "attributes": {
+                        "NORMAL": 2,
+                        "POSITION": 1,
+                        "TEXCOORD_0": 3
+                    },
+                    "indices": 0
+                }
+            ]
+        }
+    ],
+    "cameras": [
+        {
+            "name": "",
+            "type": "perspective",
+            "perspective": {
+                "znear": 10.0,
+                "zfar": 4000.0,
+                "aspectRatio": 1.5,
+                "yfov": 0.698131680488586
+            }
+        }
+    ],
+    "nodes": [
+        {
+            "name": "RootNode",
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "children": [
+                1,
+                2,
+                3
+            ]
+        },
+        {
+            "name": "Tree_lp_11",
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "mesh": 0
+        },
+        {
+            "name": "Camera",
+            "translation": [
+                0.0,
+                0.75,
+                4.0
+            ],
+            "rotation": [
+                -0.0308435652405024,
+                0.706433773040771,
+                -0.0308435652405024,
+                0.706433773040771
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "camera": 0
+        },
+        {
+            "name": "Directional Light",
+            "translation": [
+                -2.0,
+                2.0,
+                2.0
+            ],
+            "rotation": [
+                0.461939752101898,
+                -0.331413567066193,
+                0.191341713070869,
+                0.80010312795639
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        }
+    ]
+}
