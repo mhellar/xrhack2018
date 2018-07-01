@@ -41,6 +41,26 @@ AFRAME.registerComponent('interactive-photo', {
       this.el.parentNode.removeChild(this.el);
       break;
     case '#analyze':
+      const fileURL = this.el.querySelector('.source').getAttribute('src');
+      console.log(fileURL);
+      fetch(`/api/labels?url=${encodeURIComponent(fileURL)}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          let angle = Math.PI / 2;
+          console.log(data.labels.length);
+          for (let label of data.labels) {
+            console.log(angle, label.description);
+            const text = document.createElement('a-text');
+            text.setAttribute('color', '#000');
+            text.setAttribute('value', label.description);
+            text.setAttribute('position', `${2*Math.cos(angle)} ${2*Math.sin(angle)} 0.5`);
+            this.el.appendChild(text);
+
+            angle += 2 * Math.PI / data.labels.length;
+          }
+        });
       break;
     case '#move':
       console.log(this.el);
@@ -59,6 +79,9 @@ AFRAME.registerComponent('interactive-photo', {
   grabStart: function(evt) {
     if (this.el.hasAttribute('grabbable')) {
       this.el.isMoving = true;
+    }
+    for (let child of this.el.querySelectorAll('a-text')) {
+      this.el.removeChild(child);
     }
   },
 

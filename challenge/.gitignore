@@ -1,2 +1,5 @@
 .DS_Store
 node_modules
+google-service-account.json
+yarn-error.log
+server/static/tmp

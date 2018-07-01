@@ -14,6 +14,7 @@ var port = process.env.PORT || 80;
 // Setup and configure Express http server. Expect a subfolder called "static" to be the web root.
 var app = express();
 app.use(serveStatic('server/static', {'index': ['index.html']}));
+app.use('/api', require('./api'));
 
 // Start Express http server
 var webServer = http.createServer(app);

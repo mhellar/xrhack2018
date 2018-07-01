@@ -42,7 +42,7 @@ const initScene = function() {
         // console.log(photo);
         for (let image of photo.images) {
           if (image.width >= 300 && image.width < 400) {
-            var $aimage= $(`<a-entity class="photo" clickable interactive-photo pie-menu="items: #analyze, #move, #trash"><a-image src="${image.source}"></a-image></a-entity>`);
+            var $aimage= $(`<a-entity class="photo" clickable interactive-photo pie-menu="items: #analyze, #move, #trash"><a-image class="source" src="${image.source}"></a-image></a-entity>`);
             console.log('image:', i);
             $aimage.attr('position', `${i*1.5} 2 -1`);
             $('a-scene').prepend($aimage);
