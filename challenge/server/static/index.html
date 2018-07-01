@@ -25,25 +25,12 @@
 </head>
 
 <body>
-    <script>
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            // js.src = "https://connect.facebook.net/en_US/sdk/debug.js";
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
     <a-scene networked-scene="
       room: handcontrollers;
       debug: true;
-      room: basic-audio; 
-      debug: true; 
-      adapter: easyrtc; 
+      room: basic-audio;
+      debug: true;
+      adapter: easyrtc;
       audio: true;
     ">
         <a-assets>
@@ -51,8 +38,8 @@
             <img id="sky" src="https://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
 
             <a-asset-item id="temple" src="assets/temple_environment/scene.gltf"></a-asset-item>
-            <a-asset-item id="bonnie" src="assets/bonnie/scene.gltf"></a-asset-item>  
-            <a-asset-item id="polyguy" src="assets/polyguy/scene.gltf"></a-asset-item> 
+            <a-asset-item id="bonnie" src="assets/bonnie/scene.gltf"></a-asset-item>
+            <a-asset-item id="polyguy" src="assets/polyguy/scene.gltf"></a-asset-item>
             <a-asset-item id="spaceinvader" src="assets/space_invader.obj"></a-asset-item>
             <a-asset-item id="spaceinvader-mtl" src="assets/space_invader.mtl"></a-asset-item>
             <a-asset-item id="spaceinvader2" src="assets/space_invader2.obj"></a-asset-item>
@@ -123,7 +110,7 @@
         <a-entity gltf-model="#tree"></a-entity>
         <a-entity gltf-model="#bonnie"></a-entity>
         <a-entity gltf-model="#polyguy"></a-entity>
-    
+
 
         <a-entity static-body obj-model="obj: #spaceinvader; mtl: #spaceinvader-mtl" position="-10 3 0"></a-entity>
         <a-entity static-body obj-model="obj: #spaceinvader2; mtl: #spaceinvader2-mtl" position="4 3 0"></a-entity>
@@ -144,16 +131,6 @@
 
         <a-sky src="#sky" rotation="0 -90 0"></a-sky>
     </a-scene>
-
-    <script>
-        // On mobile remove elements that are resource heavy
-        var isMobile = AFRAME.utils.device.isMobile();
-
-        if (isMobile) {
-            var particles = document.getElementById('particles');
-            particles.parentNode.removeChild(particles);
-        }
-    </script>
 
     <script>
         // Define custom schema for syncing avatar color, set by random-color
@@ -201,14 +178,6 @@
             console.log("onConnect");
         }
     </script>
-    <div id="loader">
-        <p>Please wait...</p>
-        <div class="fb-login-button" data-scope="public_profile,user_photos" data-onlogin="checkFBLoginState();" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
-        <button onclick="skip();">Skip</button>
-        <div style="display:none;" class="fb-logout-button"><button onclick="logout();">Logout</button></div>
-    </div>
-    <script src="/js/jquery-3.3.1.slim.min.js"></script>
-    <script src="/js/facebook.js"></script>
 </body>
 
 </html>
