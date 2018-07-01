@@ -50,10 +50,13 @@
             <a-asset-item id="spaceinvader3" src="assets/space_invader3.obj"></a-asset-item>
             <a-asset-item id="spaceinvader3-mtl" src="assets/space_invader3.mtl"></a-asset-item>
 
-            <img id="tex1" src="assets//textures/tex1.png">
-            <img id="tex2" src="assets//textures/tex2.png">
-            <img id="tex3" src="assets//textures/tex3.jpg">
-            <img id="tex4" src="assets//textures/tex4.png">
+            <img id="tex1" src="assets/textures/tex1.png">
+            <img id="tex2" src="assets/textures/tex2.png">
+            <img id="tex3" src="assets/textures/tex3.jpg">
+            <img id="tex4" src="assets/textures/tex4.png">
+
+            <img id="portal" src="assets/img/portal.png">
+
 
             <!-- Templates -->
 
@@ -155,6 +158,8 @@
         <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
 
         <a-entity position="-15 -0.25 0.7" geometry="primitive: plane; width: 10; height: 10;" rotation="-90 0 0" material="transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
+
+        <a-entity link="href: index.html; title: My Homepage; image: #portal"></a-entity>
 
 
         <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
