@@ -50,6 +50,8 @@
             <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
             <img id="sky" src="https://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
 
+            <audio id="just_a_friend" src="just_a_friend.mp3" preload="auto"></audio>
+
             <a-asset-item id="temple" src="assets/temple_environment/scene.gltf"></a-asset-item>
             <a-asset-item id="bonnie" src="assets/bonnie/scene.gltf"></a-asset-item>  
             <a-asset-item id="polyguy" src="assets/polyguy/scene.gltf"></a-asset-item> 
@@ -124,6 +126,7 @@
         <a-entity gltf-model="#bonnie"></a-entity>
         <a-entity gltf-model="#polyguy"></a-entity>
     
+        <a-entity sound="src: #just_a_friend"></a-entity>
 
         <a-entity static-body obj-model="obj: #spaceinvader; mtl: #spaceinvader-mtl" position="-10 3 0"></a-entity>
         <a-entity static-body obj-model="obj: #spaceinvader2; mtl: #spaceinvader2-mtl" position="4 3 0"></a-entity>
