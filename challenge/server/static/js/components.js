@@ -48,7 +48,9 @@ AFRAME.registerComponent('interactive-photo', {
       this.el.setAttribute('stretchable', '');
       const image = document.createElement('a-image');
       image.classList.add('moveable');
-      image.setAttribute('src', '#move');
+      image.setAttribute('src', '#move-selected');
+      image.setAttribute('width', '0.75');
+      image.setAttribute('height', '0.75');
       this.el.appendChild(image);
       break;
     }
@@ -115,6 +117,7 @@ AFRAME.registerComponent('pie-menu', {
       const image = document.createElement('a-image');
       image.setAttribute('hoverable');
       image.setAttribute('pie-menu-item', '');
+      image.setAttribute('data-src', item);
       image.setAttribute('src', item);
       image.setAttribute('position', `${this.data.radius * Math.cos(angle)} ${this.data.radius * Math.sin(angle)} 0`);
       image.setAttribute('width', this.data.size);
@@ -139,15 +142,17 @@ AFRAME.registerComponent('pie-menu', {
   },
 
   itemStart: function(evt) {
-    console.log('hover-start', evt.target.getAttribute('src'));
+    console.log('hover-start', evt.target.getAttribute('data-src'));
     if (evt.target.hasAttribute('pie-menu-item')) {
-      this.itemSelected = evt.target.getAttribute('src');
+      evt.target.setAttribute('src', evt.target.getAttribute('data-src') + '-selected');
+      this.itemSelected = evt.target.getAttribute('data-src');
     }
   },
 
   itemEnd: function(evt) {
-    console.log('hover-end', evt.target.getAttribute('src'));
+    console.log('hover-end', evt.target.getAttribute('data-src'));
     if (evt.target.hasAttribute('pie-menu-item')) {
+      evt.target.setAttribute('src', evt.target.getAttribute('data-src'));
       this.itemSelected = null;
     }
   },
