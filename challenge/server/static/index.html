@@ -39,22 +39,16 @@
             <a-asset-item id="temple" src="assets/temple_environment/scene.gltf"></a-asset-item>
             <a-asset-item id="bonnie" src="assets/bonnie/scene.gltf"></a-asset-item>
             <a-asset-item id="polyguy" src="assets/polyguy/scene.gltf"></a-asset-item>
-
+            <a-asset-item id="camera_portal" src="assets/camera_portal/scene.gltf"></a-asset-item>
             <a-asset-item id="spaceinvader" src="assets/space_invader.obj"></a-asset-item>
             <a-asset-item id="spaceinvader-mtl" src="assets/space_invader.mtl"></a-asset-item>
             <a-asset-item id="spaceinvader2" src="assets/space_invader2.obj"></a-asset-item>
             <a-asset-item id="spaceinvader2-mtl" src="assets/space_invader2.mtl"></a-asset-item>
             <a-asset-item id="spaceinvader3" src="assets/space_invader3.obj"></a-asset-item>
             <a-asset-item id="spaceinvader3-mtl" src="assets/space_invader3.mtl"></a-asset-item>
-<<<<<<< HEAD
-            <a-asset-item id="portal" src="assets/portal/scene.gltf"></a-asset-item>
-<<<<<<< HEAD
-            
-=======
 
-=======
-          
->>>>>>> c991f243f4d4a898d74c398c724e3ade515c4ec2
+            <a-asset-item id="portal" src="assets/portal/scene.gltf"></a-asset-item>
+
             <img id="tex1" src="assets/textures/tex1.png">
             <img id="tex2" src="assets/textures/tex2.png">
             <img id="tex3" src="assets/textures/tex3.jpg">
@@ -127,10 +121,8 @@
         <a-entity position="-100 4 20" light="type: spot; color: #ffffff; distance: 20; intensity: 50; penumbra: 0.16"></a-entity>
         <a-entity gltf-model="#temple" position="0 1.5 0" scale="0.03, 0.03, 0.03"></a-entity>
         <a-entity gltf-model="#tree"></a-entity>
-<<<<<<< HEAD
         <a-entity gltf-model="#portal" position="6.187 0.388 -2.86" scale="0.003, 0.003, 0.003"></a-entity>
-        
-=======
+        <a-entity gltf-model="#camera_portal"></a-entity>
 
         <a-box position="-0.42 1.391 -5.24" rotation="0 45 30" scale="0.220 0.750 0.750" color="#F44336" event-set__enter="_event: mouseenter; _target: #btarget; src: #tex1;">
             <a-animation attribute="rotation" dur="30000" fill="forwards" to="360 360 360" repeat="indefinite"></a-animation>
@@ -150,7 +142,6 @@
 
       
 
->>>>>>> c991f243f4d4a898d74c398c724e3ade515c4ec2
 
         <a-entity static-body obj-model="obj: #spaceinvader; mtl: #spaceinvader-mtl" position="-5 18 25">
             <a-animation attribute="rotation" dur="10000" fill="forwards" to="0 360 0" repeat="indefinite"></a-animation>
