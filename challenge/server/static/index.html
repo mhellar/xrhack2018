@@ -1,5 +1,5 @@
+<!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <title>Mind Palace - WebXR Weekend Challenge 2018</title>
@@ -22,6 +22,7 @@
     <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
     <script src="/common/mappings.js"></script>
 
+    <script src="/js/interaction.js"></script>
 </head>
 
 <body>
@@ -105,24 +106,19 @@
             </template>
 
             <template id="photo-template">
-              <a-entity>
+              <a-entity class="collidable">
                 <a-image class="photo"></a-image>
               </a-entity>
             </template>
+
+            <a-mixin id="teleport" teleport-controls="type: parabolic; cameraRig: #player; collisionEntities: [mixin='box'],[mixin='sphere']"></a-mixin>
         </a-assets>
 
-        <a-entity gltf-model="#temple" position="0 1 0" scale="0.03, 0.03, 0.03"></a-entity>
-
-        <a-entity static-body obj-model="obj: #spaceinvader; mtl: #spaceinvader-mtl" position="-10 3 0"></a-entity>
-        <a-entity static-body obj-model="obj: #spaceinvader2; mtl: #spaceinvader2-mtl" position="4 3 0"></a-entity>
-        <a-entity static-body obj-model="obj: #spaceinvader3; mtl: #spaceinvader3-mtl" position="8 3 0"></a-entity>
-
         <a-entity id="player" networked="template:#player-template;attachTemplateToLocal:false;" spawn-in-circle="radius:3" wasd-controls>
-            <a-entity camera="userHeight: 1.6" wasd-controls look-controls networked="template:#head-template;attachTemplateToLocal:false;">
+            <a-entity camera="userHeight: 1.6" look-controls networked="template:#head-template;attachTemplateToLocal:false;">
                 <a-sphere class="head" random-color visible="false"></a-sphere>
             </a-entity>
-            <a-entity networked="template:#hand-template;" id="rightHand" mixin="teleport" laser-controls="hand: right" microsoft-motion-controls="hand: right" oculus-go-controls="hand: right"></a-entity>
-            <a-mixin id="teleport" teleport-controls="type: parabolic; cameraRig: #player; collisionEntities: [mixin='box'],[mixin='sphere']"></a-mixin>
+            <a-entity networked="template:#hand-template;" id="rightHand" mixin="teleport" collider-check raycaster="objects: .collidable" laser-controls="hand: right" microsoft-motion-controls="hand: right" oculus-go-controls="hand: right"></a-entity>
         </a-entity>
 
         <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>

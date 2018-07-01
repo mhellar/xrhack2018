@@ -46,7 +46,7 @@ const initScene = function() {
         // console.log(photo);
         for (let image of photo.images) {
           if (image.width >= 300 && image.width < 400) {
-            var $aimage= $(`<a-entity><a-image class="photo" src="${image.source}"></a-image></a-entity>`);
+            var $aimage= $(`<a-entity collider-check><a-image class="photo" src="${image.source}"></a-image></a-entity>`);
             console.log('image:', i);
             $aimage.attr('networked', 'template:#photo-template;attachTemplateToLocal:false');
             $aimage.attr('position', `${i*1.5} 2 -1`);
