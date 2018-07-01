@@ -51,7 +51,8 @@
             <img id="sky" src="https://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
 
             <a-asset-item id="temple" src="assets/temple_environment/scene.gltf"></a-asset-item>
-            <a-asset-item id="bonnie" src="assets/bonnie/scene.gltf"></a-asset-item>        
+            <a-asset-item id="bonnie" src="assets/bonnie/scene.gltf"></a-asset-item>  
+          
             <a-asset-item id="spaceinvader" src="assets/space_invader.obj"></a-asset-item>
             <a-asset-item id="spaceinvader-mtl" src="assets/space_invader.mtl"></a-asset-item>
             <a-asset-item id="spaceinvader2" src="assets/space_invader2.obj"></a-asset-item>
@@ -116,11 +117,12 @@
         </a-assets>
 
 
-        <a-entity position="-25 15 6" light="type: spot; color: #ffffff; distance: 20; intensity: 50; penumbra: 0.16"></a-entity>
-        <a-entity position="1 20 10" light="type: spot; color: #ffffff; distance: 20; intensity: 50; penumbra: 0.16"></a-entity>
+        <a-entity position="-16 10 13.5" light="type: spot; color: #ffffff; distance: 20; intensity: 50; penumbra: 0.16"></a-entity>
+        <a-entity light="type: spot; color: #ffffff; distance: 20; intensity: 50; penumbra: 0.16"></a-entity>
         <a-entity gltf-model="#temple" position="0 1.5 0" scale="0.03, 0.03, 0.03"></a-entity>
         <a-entity gltf-model="#tree"></a-entity>
         <a-entity gltf-model="#bonnie"></a-entity>
+    
 
         <a-entity static-body obj-model="obj: #spaceinvader; mtl: #spaceinvader-mtl" position="-10 3 0"></a-entity>
         <a-entity static-body obj-model="obj: #spaceinvader2; mtl: #spaceinvader2-mtl" position="4 3 0"></a-entity>
