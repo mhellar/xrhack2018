@@ -53,7 +53,7 @@
         <a-entity camera>
           <a-entity class="gazecaster"></a-entity>
         </a-entity>
-        <a-entity id="rhand" class="right-controller"></a-entity>
+        <a-entity id="rhand" class="right-controller" teleport-controls="cameraRig: #player"></a-entity>
         <a-entity id="lhand" class="left-controller" teleport-controls="cameraRig: #player"></a-entity>
       </a-entity>
     </a-scene>
