@@ -25,10 +25,6 @@ const checkFBLoginState = function() {
   });
 };
 
-const skip = function() {
-  $('#loader').hide();
-}
-
 const logout = function() {
   FB.logout(function(response) {
     checkFBLoginState();
@@ -46,11 +42,9 @@ const initScene = function() {
         // console.log(photo);
         for (let image of photo.images) {
           if (image.width >= 300 && image.width < 400) {
-            var $aimage= $(`<a-entity><a-image class="photo" src="${image.source}"></a-image></a-entity>`);
+            var $aimage= $(`<a-entity class="photo" clickable interactive-photo pie-menu="items: #analyze, #move, #trash"><a-image src="${image.source}"></a-image></a-entity>`);
             console.log('image:', i);
-            $aimage.attr('networked', 'template:#photo-template;attachTemplateToLocal:false');
             $aimage.attr('position', `${i*1.5} 2 -1`);
-            $aimage.attr('rotation', `0 0 0`);
             $('a-scene').prepend($aimage);
             break;
           }
