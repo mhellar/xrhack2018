@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, WebVR! - A-Frame</title>
+    <meta name="description" content="Hello, WebVR! - A-Frame">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/js/aframe-master.min.js"></script>
+    <script src="/js/components.js"></script>
+    <script src="https://unpkg.com/super-hands/dist/super-hands.min.js"></script>
+    <script src="https://unpkg.com/aframe-teleport-controls/dist/aframe-teleport-controls.min.js"></script>
+  </head>
+  <body>
+    <script>
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         // js.src = "https://connect.facebook.net/en_US/sdk/debug.js";
+         js.src = "https://connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <a-scene>
+      <a-assets>
+        <img id="analyze" src="/img/eye-solid.png">
+        <img id="move" src="/img/arrows-alt-solid.png">
+        <img id="trash" src="/img/trash-alt-solid.png">
+        <img id="analyze-selected" src="/img/eye-solid-selected.png">
+        <img id="move-selected" src="/img/arrows-alt-solid-selected.png">
+        <img id="trash-selected" src="/img/trash-alt-solid-selected.png">
+
+        <a-mixin id="cube" geometry="primitive: box; width: 0.5; height: 0.5; depth: 0.5"
+                 hoverable grabbable stretchable draggable droppable
+                 shadow
+                 event-set__dragdrop="_event: drag-drop; geometry.radius: 0.25; geometry.primitive: sphere"
+                 event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
+                 event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
+                 event-set__dragon="_event: dragover-start; material.wireframe: true"
+                 event-set__dragoff="_event: dragover-end; material.wireframe: false">
+        </a-mixin>
+        <a-mixin id="interactive" hoverable grabbable
+                 event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
+                 event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false">
+        </a-mixin>
+      </a-assets>
+      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9" shadow></a-box>
+      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E" shadow></a-sphere>
+      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" shadow></a-cylinder>
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" shadow></a-plane>
+      <a-sky color="#ECECEC"></a-sky>
+
+      <a-entity id="player" progressive-controls="objects: .cube, .photo, a-link; maxLevel: point" look-controls wasd-controls>
+        <a-entity camera>
+          <a-entity class="gazecaster"></a-entity>
+        </a-entity>
+        <a-entity id="rhand" class="right-controller"></a-entity>
+        <a-entity id="lhand" class="left-controller" teleport-controls="cameraRig: #player"></a-entity>
+      </a-entity>
+    </a-scene>
+    <div id="loader">
+      <p>Please wait...</p>
+      <div class="fb-login-button" data-scope="public_profile,user_photos" data-onlogin="checkFBLoginState();" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
+      <div style="display:none;" class="fb-logout-button"><button onclick="logout();">Logout</button></div>
+    </div>
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/facebook.js"></script>
+  </body>
+</html>

@@ -22,9 +22,6 @@
     <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
     <script src="/common/mappings.js"></script>
 
-    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
-    <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
-
 
 </head>
 
@@ -32,13 +29,12 @@
     <a-scene networked-scene="
       room: handcontrollers;
       debug: true;
-
     ">
         <a-assets>
             <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
             <img id="sky" src="https://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
 
-            <audio id="just_a_friend" src="assets/just_a_friend.mp3" preload="auto"></audio>
+            
 
             <a-asset-item id="temple" src="assets/temple_environment/scene.gltf"></a-asset-item>
             <a-asset-item id="bonnie" src="assets/bonnie/scene.gltf"></a-asset-item>
@@ -50,11 +46,14 @@
             <a-asset-item id="spaceinvader2-mtl" src="assets/space_invader2.mtl"></a-asset-item>
             <a-asset-item id="spaceinvader3" src="assets/space_invader3.obj"></a-asset-item>
             <a-asset-item id="spaceinvader3-mtl" src="assets/space_invader3.mtl"></a-asset-item>
+          
+            <img id="tex1" src="assets/textures/tex1.png">
+            <img id="tex2" src="assets/textures/tex2.png">
+            <img id="tex3" src="assets/textures/tex3.jpg">
+            <img id="tex4" src="assets/textures/tex4.png">
 
-            <img id="tex1" src="assets//textures/tex1.png">
-            <img id="tex2" src="assets//textures/tex2.png">
-            <img id="tex3" src="assets//textures/tex3.jpg">
-            <img id="tex4" src="assets//textures/tex4.png">
+            <img id="portal" src="assets/img/portal.png">
+
 
             <!-- Templates -->
 
@@ -139,6 +138,7 @@
 
         <a-sound src="src: #just_a_friend" autoplay="true" position="0 0 0"></a-sound>
 
+
         <a-entity static-body obj-model="obj: #spaceinvader; mtl: #spaceinvader-mtl" position="-5 18 25">
             <a-animation attribute="rotation" dur="10000" fill="forwards" to="0 360 0" repeat="indefinite"></a-animation>
         </a-entity>
@@ -158,6 +158,19 @@
         </a-entity>
 
         <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
+
+
+        <a-entity position="-15 -0.25 0.7" geometry="primitive: plane; width: 10; height: 10;" rotation="-90 0 0" material="transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
+        <a-entity position="-11 2 0.09" geometry="primitive: plane; width: 5; height: 5;" rotation="-90 0 0" material="transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
+
+
+        <a-entity position="-6.4 3.7 0" geometry="primitive: plane; width: 4; height: 4;" rotation="-90 0 0" material="transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
+        <a-entity position="-6.4 6.3 10.9" geometry="primitive: plane; width: 4; height: 4;" rotation="-90 0 0" material="transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
+        <a-entity position="-6.4 6.3 -9.8" geometry="primitive: plane; width: 4; height: 4;" rotation="-90 0 0" material="transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
+        <a-entity position="-3.3 8.8 0.17" geometry="primitive: plane; width: 2; height: 4;" rotation="-90 0 0" material="transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
+
+        <a-entity link="href: facebook.html; title: interactive; image: #portal"></a-entity>
+
 
         <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
         <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
