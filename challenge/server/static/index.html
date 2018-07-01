@@ -22,6 +22,8 @@
     <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
     <script src="/common/mappings.js"></script>
 
+    <script src="https://unpkg.com/super-hands/dist/super-hands.min.js"></script>
+
     <script src="/js/interaction.js"></script>
 </head>
 
@@ -112,14 +114,36 @@
             </template>
 
             <a-mixin id="teleport" teleport-controls="type: parabolic; cameraRig: #player; collisionEntities: [mixin='box'],[mixin='sphere']"></a-mixin>
+
+            <a-mixin id="cube" geometry="primitive: box; width: 0.5; height: 0.5; depth: 0.5"
+                     hoverable grabbable stretchable draggable droppable
+                     shadow
+                     event-set__dragdrop="_event: drag-drop; geometry.radius: 0.25; geometry.primitive: sphere"
+                     event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
+                     event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
+                     event-set__dragon="_event: dragover-start; material.wireframe: true"
+                     event-set__dragoff="_event: dragover-end; material.wireframe: false">
+            </a-mixin>
         </a-assets>
 
         <a-entity id="player" networked="template:#player-template;attachTemplateToLocal:false;" spawn-in-circle="radius:3" wasd-controls>
             <a-entity camera="userHeight: 1.6" look-controls networked="template:#head-template;attachTemplateToLocal:false;">
                 <a-sphere class="head" random-color visible="false"></a-sphere>
             </a-entity>
-            <a-entity networked="template:#hand-template;" id="rightHand" mixin="teleport" collider-check raycaster="objects: .collidable" laser-controls="hand: right" microsoft-motion-controls="hand: right" oculus-go-controls="hand: right"></a-entity>
+            <a-entity networked="template:#hand-template;" id="rightHand" mixin="teleport" collider-check
+                super-hands="colliderEvent: raycaster-intersection;
+                            colliderEventProperty: els;
+                            colliderEndEvent: raycaster-intersection-cleared;
+                            colliderEndEventProperty: el"
+                raycaster="objects: .collidable" laser-controls="hand: right" microsoft-motion-controls="hand: right" oculus-go-controls="hand: right"></a-entity>
         </a-entity>
+
+        <a-entity class="cube collidable" mixin="cube" position="0 1 -1.25" material="color: red"></a-entity>
+        <a-entity class="cube collidable" mixin="cube" position="0 1.6 -1.5" material="color: red"></a-entity>
+        <a-entity class="cube collidable" mixin="cube" position="-0.9 1 -0.9" material="color: blue"></a-entity>
+        <a-entity class="cube collidable" mixin="cube" position="-1 1.6 -1" material="color: blue"></a-entity>
+        <a-entity class="cube collidable" mixin="cube" position="0.9 1 -0.9" material="color: green"></a-entity>
+        <a-entity class="cube collidable" mixin="cube" position="1 1.6 -1" material="color: green"></a-entity>
 
         <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
 
