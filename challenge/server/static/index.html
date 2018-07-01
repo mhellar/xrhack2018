@@ -22,6 +22,7 @@
     <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
     <script src="/common/mappings.js"></script>
 
+
 </head>
 
 <body>
@@ -41,10 +42,7 @@
     <a-scene networked-scene="
       room: handcontrollers;
       debug: true;
-      room: basic-audio; 
-      debug: true; 
-      adapter: easyrtc; 
-      audio: true;
+
     ">
         <a-assets>
             <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
@@ -69,32 +67,33 @@
             <!-- Head -->
             <template id="head-template">
               <a-entity class="avatar">
-                <a-sphere class="head"
+<!--                 <a-sphere class="head"
                   color="#ffffff"
                   scale="0.45 0.5 0.4"
-                ></a-sphere>
+                ></a-sphere> -->
+                <a-entity gltf-model="#bonnie" class="head" rotation="0 180 0" scale="0.03, 0.03, 0.03"></a-entity>
                 <a-entity class="face"
                   position="0 0.05 0"
                 >
                   <a-sphere class="eye"
                     color="#efefef"
-                    position="0.16 0.1 -0.35"
+                    position="0.16 1.9 -0.35"
                     scale="0.12 0.12 0.12"
                   >
                     <a-sphere class="pupil"
                       color="#000"
-                      position="0 0 -1"
+                      position="0 .5 -1"
                       scale="0.2 0.2 0.2"
                     ></a-sphere>
                   </a-sphere>
                   <a-sphere class="eye"
                     color="#efefef"
-                    position="-0.16 0.1 -0.35"
+                    position="-0.16 1.9 -0.35"
                     scale="0.12 0.12 0.12"
                   >
                     <a-sphere class="pupil"
                       color="#000"
-                      position="0 0 -1"
+                      position="0 .5 -1"
                       scale="0.2 0.2 0.2"
                     ></a-sphere>
                   </a-sphere>
@@ -120,7 +119,7 @@
         <a-entity light="type: spot; color: #ffffff; distance: 20; intensity: 50; penumbra: 0.16"></a-entity>
         <a-entity gltf-model="#temple" position="0 1.5 0" scale="0.03, 0.03, 0.03"></a-entity>
         <a-entity gltf-model="#tree"></a-entity>
-        <a-entity gltf-model="#bonnie"></a-entity>
+        <!-- <a-entity gltf-model="#bonnie" scale="0.03, 0.03, 0.03"></a-entity> -->
 
         <a-entity static-body obj-model="obj: #spaceinvader; mtl: #spaceinvader-mtl" position="-10 3 0"></a-entity>
         <a-entity static-body obj-model="obj: #spaceinvader2; mtl: #spaceinvader2-mtl" position="4 3 0"></a-entity>
