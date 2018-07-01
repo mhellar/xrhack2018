@@ -159,7 +159,7 @@
             <a-entity camera="userHeight: 1.6" wasd-controls look-controls networked="template:#head-template;attachTemplateToLocal:false;">
                 <a-sphere class="head" random-color visible="false"></a-sphere>
             </a-entity>
-            <a-entity networked="template:#hand-template;" id="rightHand" mixin="teleport" laser-controls="hand: right" microsoft-motion-controls="hand: right" oculus-go-controls="hand: right"></a-entity>
+            <a-entity networked="template:#hand-template;" id="rightHand" mixin="teleport" laser-controls="hand: right" microsoft-motion-controls="hand: right" oculus-go-controls="hand: right" oculus-touch-controls="hand: right"></a-entity>
             <a-mixin id="teleport" teleport-controls="type: parabolic; cameraRig: #player; collisionEntities: [mixin='box'],[mixin='sphere']"></a-mixin>
         </a-entity>
 
