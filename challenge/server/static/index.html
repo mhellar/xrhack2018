@@ -13,7 +13,6 @@
     </script>
 
     <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
-    <script src="https://unpkg.com/aframe-particle-system-component@1.0.5/dist/aframe-particle-system-component.min.js"></script>
     <script src="/js/spawn-in-circle.component.js"></script>
 
     <script src="https://mmullen200.github.io/components.js"></script>
@@ -44,12 +43,8 @@
       debug: true;
     ">
         <a-assets>
-
             <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
-            <img id="sky" src="http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
-
-            <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
-            <img id="sky" src="http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
+            <img id="sky" src="https://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
 
             <a-asset-item id="temple" src="assets/temple_environment/scene.gltf"></a-asset-item>
             </a-asset-item>
@@ -60,6 +55,60 @@
             <a-asset-item id="spaceinvader3" src="assets/space_invader3.obj"></a-asset-item>
             <a-asset-item id="spaceinvader3-mtl" src="assets/space_invader3.mtl"></a-asset-item>
 
+            <!-- Templates -->
+
+            <!-- Player -->
+            <template id="player-template">
+              <a-entity></a-entity>
+            </template>
+
+            <!-- Head -->
+            <template id="head-template">
+              <a-entity class="avatar">
+                <a-sphere class="head"
+                  color="#ffffff"
+                  scale="0.45 0.5 0.4"
+                ></a-sphere>
+                <a-entity class="face"
+                  position="0 0.05 0"
+                >
+                  <a-sphere class="eye"
+                    color="#efefef"
+                    position="0.16 0.1 -0.35"
+                    scale="0.12 0.12 0.12"
+                  >
+                    <a-sphere class="pupil"
+                      color="#000"
+                      position="0 0 -1"
+                      scale="0.2 0.2 0.2"
+                    ></a-sphere>
+                  </a-sphere>
+                  <a-sphere class="eye"
+                    color="#efefef"
+                    position="-0.16 0.1 -0.35"
+                    scale="0.12 0.12 0.12"
+                  >
+                    <a-sphere class="pupil"
+                      color="#000"
+                      position="0 0 -1"
+                      scale="0.2 0.2 0.2"
+                    ></a-sphere>
+                  </a-sphere>
+                </a-entity>
+              </a-entity>
+            </template>
+
+            <!-- Hand -->
+            <template id="hand-template">
+              <a-entity>
+              </a-entity>
+            </template>
+
+            <template id="photo-template">
+              <a-entity>
+                <a-image class="photo"></a-image>
+              </a-entity>
+            </template>
         </a-assets>
 
         <a-entity gltf-model="#temple" position="0 1 0" scale="0.03, 0.03, 0.03"></a-entity>
@@ -67,65 +116,6 @@
         <a-entity static-body obj-model="obj: #spaceinvader; mtl: #spaceinvader-mtl" position="-10 3 0"></a-entity>
         <a-entity static-body obj-model="obj: #spaceinvader2; mtl: #spaceinvader2-mtl" position="4 3 0"></a-entity>
         <a-entity static-body obj-model="obj: #spaceinvader3; mtl: #spaceinvader3-mtl" position="8 3 0"></a-entity>
-
-        <!-- Templates -->
-
-        <!-- Player -->
-        <template id="player-template">
-          <a-entity></a-entity>
-        </template>
-
-        <!-- Head -->
-        <template id="head-template">
-          <a-entity class="avatar">
-            <a-sphere class="head"
-              color="#ffffff"
-              scale="0.45 0.5 0.4"
-            ></a-sphere>
-            <a-entity class="face"
-              position="0 0.05 0"
-            >
-              <a-sphere class="eye"
-                color="#efefef"
-                position="0.16 0.1 -0.35"
-                scale="0.12 0.12 0.12"
-              >
-                <a-sphere class="pupil"
-                  color="#000"
-                  position="0 0 -1"
-                  scale="0.2 0.2 0.2"
-                ></a-sphere>
-              </a-sphere>
-              <a-sphere class="eye"
-                color="#efefef"
-                position="-0.16 0.1 -0.35"
-                scale="0.12 0.12 0.12"
-              >
-                <a-sphere class="pupil"
-                  color="#000"
-                  position="0 0 -1"
-                  scale="0.2 0.2 0.2"
-                ></a-sphere>
-              </a-sphere>
-            </a-entity>
-          </a-entity>
-        </template>
-
-        <!-- Hand -->
-        <template id="hand-template">
-          <a-entity>
-            <a-box scale="0.1 0.1 0.1"></a-box>
-          </a-entity>
-        </template>
-
-        <template id="photo-template">
-          <a-entity>
-            <a-image class="photo"></a-image>
-          </a-entity>
-        </template>
-
-        <!-- /Templates -->
-        </a-assets>
 
         <a-entity id="player" networked="template:#player-template;attachTemplateToLocal:false;" spawn-in-circle="radius:3" wasd-controls>
             <a-entity camera="userHeight: 1.6" wasd-controls look-controls networked="template:#head-template;attachTemplateToLocal:false;">
@@ -141,7 +131,6 @@
         <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
 
         <a-sky src="#sky" rotation="0 -90 0"></a-sky>
-        <a-entity id="particles" particle-system="preset: snow"></a-entity>
     </a-scene>
 
     <script>
