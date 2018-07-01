@@ -103,8 +103,10 @@
         </a-assets>
 
 
-        <a-entity position="-16 10 13.5" light="type: spot; color: #ffffff; distance: 20; intensity: 50; penumbra: 0.16"></a-entity>
-        <a-entity light="type: spot; color: #ffffff; distance: 20; intensity: 50; penumbra: 0.16"></a-entity>
+        <a-entity position="-22 10 13.5" light="type: spot; color: #ffffff; distance: 20; intensity: 50; penumbra: 0.16"></a-entity>
+        <a-entity position="0 21 13.5" light="type: spot; color: #ffffff; distance: 20; intensity: 50; penumbra: 0.16"></a-entity>
+        <a-entity position="-61 4 4" light="type: spot; color: #ffffff; distance: 20; intensity: 50; penumbra: 0.16"></a-entity>
+        <a-entity position="-100 4 20" light="type: spot; color: #ffffff; distance: 20; intensity: 50; penumbra: 0.16"></a-entity>
         <a-entity gltf-model="#temple" position="0 1.5 0" scale="0.03, 0.03, 0.03"></a-entity>
         <a-entity gltf-model="#tree"></a-entity>
 
@@ -120,7 +122,7 @@
             <a-mixin id="teleport" teleport-controls="type: parabolic; cameraRig: #player; collisionEntities: [mixin='box'],[mixin='sphere']"></a-mixin>
         </a-entity>
 
-        <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
+        <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
 
         <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
         <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
