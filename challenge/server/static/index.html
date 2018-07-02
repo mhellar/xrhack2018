@@ -127,11 +127,6 @@
                 </a-entity>
               </template>
 
-            <template id="photo-template">
-              <a-entity>
-                <a-image class="photo"></a-image>
-              </a-entity>
-            </template>
         </a-assets>
 
 
@@ -179,7 +174,9 @@
         <a-entity position="-6.4 6.3 -9.8" geometry="primitive: plane; width: 4; height: 4;" rotation="-90 0 0" material="transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
         <a-entity position="-3.3 8.8 0.17" geometry="primitive: plane; width: 2; height: 4;" rotation="-90 0 0" material="transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
 
-        <a-entity link="href: facebook.html; title: interactive; image: #portal"></a-entity>
+        <a-entity networked="template: #block-template">
+        </a-entity>
+        <!-- <a-entity link="href: facebook.html; title: interactive; image: #portal"></a-entity> -->
 
 
         <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
