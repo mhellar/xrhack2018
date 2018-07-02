@@ -14,14 +14,11 @@
 
     <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
     <script src="/js/spawn-in-circle.component.js"></script>
-
     <script src="https://mmullen200.github.io/components.js"></script>
-
     <script src="/dist/aframe-teleport-controls.min.js"></script>
     <script src="https://unpkg.com/aframe-input-mapping-component/dist/aframe-input-mapping-component.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
     <script src="/common/mappings.js"></script>
-
 
 </head>
 
@@ -38,9 +35,9 @@
 
             <a-asset-item id="temple" src="assets/temple_environment/scene.gltf"></a-asset-item>
             <a-asset-item id="bonnie" src="assets/bonnie/scene.gltf"></a-asset-item>
-<!--             <a-asset-item id="polyguy" src="assets/polyguy/scene.gltf"></a-asset-item> -->
+            <!--             <a-asset-item id="polyguy" src="assets/polyguy/scene.gltf"></a-asset-item> -->
 
-<!--             <a-asset-item id="camera_portal" src="assets/camera_portal/scene.gltf"></a-asset-item> -->
+            <!--             <a-asset-item id="camera_portal" src="assets/camera_portal/scene.gltf"></a-asset-item> -->
 
             <a-asset-item id="spaceinvader" src="assets/space_invader.obj"></a-asset-item>
             <a-asset-item id="spaceinvader-mtl" src="assets/space_invader.mtl"></a-asset-item>
@@ -159,7 +156,8 @@
             <a-entity camera="userHeight: 1.6" wasd-controls look-controls networked="template:#head-template;attachTemplateToLocal:false;">
                 <a-sphere class="head" random-color visible="false"></a-sphere>
             </a-entity>
-            <a-entity networked="template:#hand-template;" id="rightHand" mixin="teleport" laser-controls="hand: right" microsoft-motion-controls="hand: right" oculus-go-controls="hand: right" oculus-touch-controls="hand: right"></a-entity>
+            <a-entity networked="template:#hand-template;" id="rightHand" mixin="teleport" laser-controls="hand: right" microsoft-motion-controls="hand: right" vive-controls="hand: right" oculus-go-controls="hand: right" oculus-touch-controls="hand: right"></a-entity>
+            <a-entity networked="template:#hand-template;" id="leftHand" mixin="teleport" laser-controls="hand: left" microsoft-motion-controls="hand: left" vive-controls="hand: left" oculus-touch-controls="hand: left"></a-entity>
             <a-mixin id="teleport" teleport-controls="type: parabolic; cameraRig: #player; collisionEntities: [mixin='box'],[mixin='sphere']"></a-mixin>
         </a-entity>
 
