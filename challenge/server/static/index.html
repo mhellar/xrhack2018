@@ -18,23 +18,50 @@
     <script src="/dist/aframe-teleport-controls.min.js"></script>
     <script src="https://unpkg.com/aframe-input-mapping-component/dist/aframe-input-mapping-component.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://rawgit.com/urish/aframe-fireball-component/master/index.js"></script>
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
     <script src="/common/mappings.js"></script>
+
+    <script>
+        AFRAME.registerComponent('mythreejsthing', {
+            schema: {
+                color: {
+                    default: '#000'
+                },
+            },
+            update: function() {
+                var material = new THREE.MeshBasicMaterial({
+                    color: this.data.color,
+                    wireframe: true
+                });
+
+                var geometry = new THREE.BoxGeometry(4, 4, 4);
+
+                this.el.setObject3D('mesh', new THREE.Mesh(geometry, material));
+            },
+
+            remove: function() {
+                this.el.removeObject3D('mesh');
+            }
+        });
+    </script>
 
 </head>
 
 <body>
+
     <a-scene networked-scene="
       room: handcontrollers;
       debug: true;
-    ">
+    " environment="preset: forest; groundColor: #445; grid: cross">
         <a-assets>
             <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
             <img id="sky" src="https://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
 
-
-
             <a-asset-item id="temple" src="assets/temple_environment/scene.gltf"></a-asset-item>
             <a-asset-item id="bonnie" src="assets/bonnie/scene.gltf"></a-asset-item>
+            <a-asset-item id="temple2" src="assets/TEMPLE_b.gltf"></a-asset-item>
+
             <!--             <a-asset-item id="polyguy" src="assets/polyguy/scene.gltf"></a-asset-item> -->
 
             <!--             <a-asset-item id="camera_portal" src="assets/camera_portal/scene.gltf"></a-asset-item> -->
@@ -45,6 +72,13 @@
             <a-asset-item id="spaceinvader2-mtl" src="assets/space_invader2.mtl"></a-asset-item>
             <a-asset-item id="spaceinvader3" src="assets/space_invader3.obj"></a-asset-item>
             <a-asset-item id="spaceinvader3-mtl" src="assets/space_invader3.mtl"></a-asset-item>
+
+
+
+            <img id="tex1" src="assets/textures/tex1.png">
+            <img id="tex2" src="assets/textures/tex2.png">
+            <img id="tex3" src="assets/textures/tex3.jpg">
+            <img id="tex4" src="assets/textures/tex4.png">
 
             <img id="portal" src="assets/img/portal.png">
 
@@ -99,29 +133,12 @@
               </a-entity>
             </template>
 
-            <template id="block-template">
+            <!-- <template id="block-template">
                 <a-entity>
-                        <img id="tex1" src="assets/textures/tex1.png">
-                        <img id="tex2" src="assets/textures/tex2.png">
-                        <img id="tex3" src="assets/textures/tex3.jpg">
-                        <img id="tex4" src="assets/textures/tex4.png">
-                        <a-box position="-0.42 1.391 -5.24" rotation="0 45 30" scale="0.220 0.750 0.750" color="#F44336" event-set__enter="_event: mouseenter; _target: #btarget; src: #tex1;">
 
-                            </a-box>
-                            <a-box position="0.346 1.199 -4.56" rotation="0 45 45" scale="0.75 0.210 0.75" color="#2196F3" event-set__enter="_event: mouseenter; _target: #btarget; src: #tex2;">
-                
-                            </a-box>
-                            <a-box position="1.083 1.292 -4.59" rotation="0 90 30" scale="1 0.270 1" color="#009688" event-set__enter="_event: mouseenter; _target: #btarget; src: #tex3;">
-                
-                            </a-box>
-                            <a-box position="1.988 1 -5.03" rotation="0 70 30" scale="0.9 0.1 0.9" color="#E91E63" event-set__enter="_event: mouseenter; _target: #btarget; src: #tex4;">
-                
-                            </a-box>
-                
-                            <a-box position="1 3 -5" id="btarget" position="1 4 -20.5" rotation="0 70 15.6" scale="0.31 2.5 4.398" event-set__enter="_event: mouseenter; _target: #floor; color: #E91E63" material="src: #tex1;">
-                            </a-box>
+                      
                 </a-entity>
-              </template>
+              </template> -->
 
         </a-assets>
 
@@ -132,8 +149,9 @@
         <a-entity position="-100 4 20" light="type: spot; color: #ffffff; distance: 20; intensity: 50; penumbra: 0.16"></a-entity>
         <a-entity gltf-model="#temple" position="0 1.5 0" scale="0.03, 0.03, 0.03"></a-entity>
         <a-entity gltf-model="#tree"></a-entity>
+        <a-entity gltf-model="#temple2" position="-30 0 220.7" fireball></a-entity>
 
-
+        <a-entity mythreejsthing="color: green;" position="0 1 -5"> </a-entity>
 
 
         <a-entity static-body obj-model="obj: #spaceinvader; mtl: #spaceinvader-mtl" position="-5 18 25">
@@ -155,6 +173,8 @@
             <a-mixin id="teleport" teleport-controls="type: parabolic; cameraRig: #player; collisionEntities: [mixin='box'],[mixin='sphere']"></a-mixin>
         </a-entity>
 
+        <!-- <a-sphere position="0 1 -5" fireball></a-sphere> -->
+
         <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0" material="src: #grid; repeat: 10000 10000; transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
 
 
@@ -167,8 +187,26 @@
         <a-entity position="-6.4 6.3 -9.8" geometry="primitive: plane; width: 4; height: 4;" rotation="-90 0 0" material="transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
         <a-entity position="-3.3 8.8 0.17" geometry="primitive: plane; width: 2; height: 4;" rotation="-90 0 0" material="transparent: false; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
 
-        <a-entity networked="template: #block-template">
-        </a-entity>
+
+
+        <!-- <a-entity networked="template: #block-template"> -->
+        <a-box position="-0.42 1.391 -5.24" rotation="0 45 30" scale="0.220 0.750 0.750" color="#F44336" event-set__enter="_event: mouseenter; _target: #btarget; src: #tex1;">
+
+        </a-box>
+        <a-box position="0.346 1.199 -4.56" rotation="0 45 45" scale="0.75 0.210 0.75" color="#2196F3" event-set__enter="_event: mouseenter; _target: #btarget; src: #tex2;">
+
+        </a-box>
+        <a-box position="1.083 1.292 -4.59" rotation="0 90 30" scale="1 0.270 1" color="#009688" event-set__enter="_event: mouseenter; _target: #btarget; src: #tex3;">
+
+        </a-box>
+        <a-box position="1.988 1 -5.03" rotation="0 70 30" scale="0.9 0.1 0.9" color="#E91E63" event-set__enter="_event: mouseenter; _target: #btarget; src: #tex4;">
+
+        </a-box>
+        <a-box position="1 3 -5" id="btarget" position="1 4 -20.5" rotation="0 70 15.6" scale="0.31 2.5 4.398" event-set__enter="_event: mouseenter; _target: #floor; color: #E91E63" material="src: #tex1;">
+        </a-box>
+        <!-- </a-entity> -->
+
+
 
         <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
         <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
@@ -205,28 +243,13 @@
             ]
         });
 
-        NAF.schemas.add({
-            template: '#photo-template',
-            components: [
-                'position',
-                'rotation', {
-                    selector: '.photo',
-                    component: 'material',
-                    property: 'src'
-                }
-            ]
-        });
-
-        NAF.schemas.add({
-            template: '#block-template',
-            components: [
-                'position',
-                'rotation',
-                'material', {
-                    property: 'src'
-                }
-            ]
-        });
+        // NAF.schemas.add({
+        //     template: '#block-template',
+        //     components: [{
+        //         component: 'material',
+        //         property: 'src'
+        //     }]
+        // });
 
         // Called by Networked-Aframe when connected to server
         function onConnect() {
